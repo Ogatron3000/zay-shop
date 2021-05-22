@@ -22,4 +22,9 @@ class Product extends Model
     {
         return '/shop/' . $this->slug;
     }
+
+    public function scopeMightAlsoLike($query)
+    {
+        return $query->inRandomOrder()->take(4);
+    }
 }

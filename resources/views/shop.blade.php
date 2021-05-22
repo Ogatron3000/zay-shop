@@ -94,9 +94,29 @@
                                     <img class="card-img rounded-0 img-fluid" src="{{ asset('img/feature_prod_04.jpg') }}">
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
-                                            <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                            <li>
+                                                <form action="{{ route('saveForLater.store') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                                    <input type="hidden" name="name" value="{{ $product->name }}">
+                                                    <input type="hidden" name="price" value="{{ $product->price }}">
+                                                    <button class="btn btn-success text-white mt-2">
+                                                        <i class="far fa-heart"></i>
+                                                    </button>
+                                                </form>
+                                            </li>
                                             <li><a class="btn btn-success text-white mt-2" href="{{ $product->path() }}"><i class="far fa-eye"></i></a></li>
-                                            <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                            <li>
+                                                <form action="{{ route('cart.store') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                                    <input type="hidden" name="name" value="{{ $product->name }}">
+                                                    <input type="hidden" name="price" value="{{ $product->price }}">
+                                                    <button class="btn btn-success text-white mt-2">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </button>
+                                                </form>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

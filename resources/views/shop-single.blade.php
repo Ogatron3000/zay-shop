@@ -164,7 +164,13 @@
                                 </div>
                                 <div class="row pb-3">
                                     <div class="col-4 d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
+                                        <form action="{{ route('cart.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" hidden name="id" value="{{ $product->id }}">
+                                            <input type="hidden" hidden name="name" value="{{ $product->name }}">
+                                            <input type="hidden" hidden name="price" value="{{ $product->price }}">
+                                            <button type="submit" class="btn btn-success btn-lg" name="submit">Add To Cart</button>
+                                        </form>
                                     </div>
                                 </div>
                             </form>
@@ -177,38 +183,7 @@
     </section>
     <!-- Close Content -->
 
-    <!-- Start Article -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row text-left p-2 pb-3">
-                <h4>You Might Also Like</h4>
-            </div>
-
-            <!--You Might Also Like-->
-            <div class="row">
-                @foreach($mightAlsoLike as $product)
-                    <div class="col-12 col-md-3 mb-4">
-                        <div class="product-wap card rounded-0">
-                            <div class="card rounded-0">
-                                <img src="{{ asset('img/feature_prod_04.jpg') }}" class="card-img-top" alt="...">
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="{{ $product->path() }}"><i class="far fa-eye"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="{{ $product->path() }}" class="h3 text-decoration-none text-dark">{{ $product->name }}</a>
-                                <div class="text-muted text-right">{{ $product->presentPrice() }}</div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-        </div>
-    </section>
-    <!-- End Article -->
+    <!-- Start You Might Also Like -->
+    @include('_partials.might-also-like')
+    <!-- End You Might Also Like -->
 @endsection
