@@ -81,8 +81,8 @@
                     </div> <!-- end cart-totals -->
 
                     <div class="cart-buttons">
-                        <button type="submit" class="btn btn-outline-success btn-lg" name="submit">Continue Shopping</button>
-                        <button type="submit" class="btn btn-success btn-lg" name="submit">Proceed to Checkout</button>
+                        <a href="{{ route('shop.index') }}"><button type="submit" class="btn btn-outline-success btn-lg" name="submit">Continue Shopping</button></a>
+                        <button type="submit" id="checkout-button" class="btn btn-success btn-lg" name="submit">Proceed to Checkout</button>
                     </div>
 
                     <h2>{{ Cart::instance('saveForLater')->count() }} item(s) Saved For Later</h2>
