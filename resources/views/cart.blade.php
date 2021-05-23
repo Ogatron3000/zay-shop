@@ -54,7 +54,7 @@
                                             <option>5</option>
                                         </select>
                                     </div>
-                                    <div>$2499.99</div>
+                                    <div>{{ $item->model->presentPrice() }}</div>
                                 </div>
                             </div>
                         @endforeach<!-- end cart-table-row -->
@@ -73,16 +73,16 @@
                                 <span class="cart-totals-total">Total</span>
                             </div>
                             <div class="cart-totals-subtotal">
-                                {{ present_price(Cart::subtotal()) }} <br>
-                                {{ present_price(Cart::tax()) }} <br>
-                                <span class="cart-totals-total">{{ present_price(Cart::total()) }}</span>
+                                {{ present_price(Cart::instance('default')->subtotal()) }} <br>
+                                {{ present_price(Cart::instance('default')->tax()) }} <br>
+                                <span class="cart-totals-total">{{ present_price(Cart::instance('default')->total()) }}</span>
                             </div>
                         </div>
                     </div> <!-- end cart-totals -->
 
                     <div class="cart-buttons">
                         <a href="{{ route('shop.index') }}"><button type="submit" class="btn btn-outline-success btn-lg" name="submit">Continue Shopping</button></a>
-                        <button type="submit" id="checkout-button" class="btn btn-success btn-lg" name="submit">Proceed to Checkout</button>
+                        <a href="{{ route('checkout.index') }}"><button type="submit" class="btn btn-success btn-lg" name="submit">Proceed to Checkout</button></a>
                     </div>
 
                     <h2>{{ Cart::instance('saveForLater')->count() }} item(s) Saved For Later</h2>

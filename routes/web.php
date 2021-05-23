@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CompletedOrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SaveForLaterController;
 use App\Http\Controllers\ShopController;
@@ -32,6 +33,8 @@ Route::post('/saveForLater', [SaveForLaterController::class, 'store'])->name('sa
 Route::delete('/saveForLater/{product}', [SaveForLaterController::class, 'destroy'])->name('saveForLater.destroy');
 Route::post('/saveForLater/switchToCart/{product}', [SaveForLaterController::class, 'switchToCart'])->name('saveForLater.switchToCart');
 
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
-Route::view('/success', 'success')->name('checkout.store');
+Route::get('/thanks', [CompletedOrderController::class, 'index'])->name('thanks.index');
+Route::post('/thanks', [CompletedOrderController::class, 'store'])->name('thanks.store');
+
