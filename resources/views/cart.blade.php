@@ -15,7 +15,7 @@
 
                     @if(count($errors) > 0)
                         <div class="alert alert-danger">
-                            <ul>
+                            <ul class="mb-0">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
@@ -46,15 +46,13 @@
                                         </form>
                                     </div>
                                     <div>
-                                        <select class="quantity">
-                                            <option selected="">1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                        <select class="quantity" data-id="{{ $item->rowId }}">
+                                            @for($i = 1; $i < 6; $i++)
+                                                <option {{ $item->qty == $i ? 'selected' : ''}} value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
                                         </select>
                                     </div>
-                                    <div>{{ $item->model->presentPrice() }}</div>
+                                    <div>{{ present_price($item->subtotal()) }}</div>
                                 </div>
                             </div>
                         @endforeach<!-- end cart-table-row -->
@@ -109,16 +107,14 @@
                                             <button class="link-button">Add to Cart</button>
                                         </form>
                                     </div>
-                                    {{-- <div>
-                                        <select class="quantity">
-                                            <option selected="">1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div> --}}
-                                    <div>$2499.99</div>
+                                    <div>
+                                        {{--<select class="quantity" data-id="{{ $item->rowId }}">--}}
+                                        {{--    @for($i = 1; $i < 6; $i++)--}}
+                                        {{--        <option selected="" value="{{41 }}">123</option>--}}
+                                        {{--    @endfor--}}
+                                        {{--</select>--}}
+                                    </div>
+                                    <div>{{ $item->model->presentPrice() }}</div>
                                 </div>
                             </div>
                         @endforeach <!-- end cart-table-row -->
@@ -134,4 +130,26 @@
     <!-- Start You Might Also Like -->
     @include('_partials.might-also-like')
     <!-- End You Might Also Like -->
+
+@endsection
+
+@section('extra-js')
+    <script type="text/javascript">
+        const quantity = [ ...document.querySelectorAll(".quantity") ];
+        quantity.forEach((element) => {
+            const id = element.getAttribute('data-id')
+            element.addEventListener('change', () => {
+                axios.patch(`/cart/${id}`, {
+                    quantity: element.value,
+                })
+                    .then(function (response) {
+                        window.location.replace("{{ route('cart.index') }}");
+                    })
+                    .catch(function (error) {
+                        window.location.replace("{{ route('cart.index') }}");
+                    });
+            })
+        })
+        // quantity.addEventListener('change', () => alert('yo'));
+    </script>
 @endsection

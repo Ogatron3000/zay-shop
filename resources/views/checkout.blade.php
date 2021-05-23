@@ -86,7 +86,7 @@
                                             <div class="checkout-item-details">
                                                 <div class="checkout-table-item">{{ $item->model->name }}</div>
                                                 <div class="checkout-table-description">{{ $item->model->details }}</div>
-                                                <div class="checkout-table-price">{{ $item->model->presentPrice() }}</div>
+                                                <div class="checkout-table-price">{{ present_price($item->subtotal()) }}</div>
                                             </div>
                                         </div> <!-- end checkout-table -->
 
@@ -136,26 +136,23 @@
 
 @section('extra-js')
     <script type="text/javascript">
-        var stripe = Stripe(
-
-            'pk_test_51ItwSHD3zArsPzSwdFW58s4JkNn04nDN78J4Viar6ikX0LL5Qqto27h2oZwiKzcIx6l9H7wplzE19Bs6mWURSC3E00MkBKMyX8'
-        );
+        let stripe = Stripe('pk_test_51ItwSHD3zArsPzSwdFW58s4JkNn04nDN78J4Viar6ikX0LL5Qqto27h2oZwiKzcIx6l9H7wplzE19Bs6mWURSC3E00MkBKMyX8');
 
         // Set up Stripe.js and Elements to use in checkout form
-        var elements = stripe.elements();
-        var style = {
+        let elements = stripe.elements();
+        let style = {
             base: {
                 color: "#32325d",
             }
         };
 
-        var card = elements.create("card", {
+        let card = elements.create("card", {
             style: style,
             hidePostalCode: true
         });
         card.mount("#card-element")
 
-        var form = document.getElementById('payment-form');
+        let form = document.getElementById('payment-form');
 
         form.addEventListener('submit', function(ev) {
             ev.preventDefault();
@@ -183,7 +180,7 @@
             }).then(function(result) {
                 if (result.error) {
                     // Show error to your customer (e.g., insufficient funds)
-                    var errorElement = document.getElementById('card-errors');
+                    let errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
                     // Enable the submit button
                     document.getElementById('complete-order').disabled = false;
@@ -195,22 +192,15 @@
                         // execution. Set up a webhook or plugin to listen for the
                         // payment_intent.succeeded event that handles any business critical
                         // post-payment actions.
-                        $.ajax({
-                            url: "/thanks",
-                            type:"POST",
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            data:{
-                                orderStatus: result.paymentIntent.status,
-                            },
-                            success: function(response){
-                                window.location.replace("http://127.0.0.1:8000/thanks?order=succeeded");
-                            },
-                            error: function(response){
-                                window.location.replace("http://127.0.0.1:8000/checkout");
-                            },
-                        });
+                        axios.post('/thanks', {
+                            orderStatus: result.paymentIntent.status,
+                        })
+                            .then(function (response) {
+                                window.location.replace("{{ route('thanks.index', ['order' => 'succeeded']) }}");
+                            })
+                            .catch(function (error) {
+                                window.location.replace("{{ route('checkout.index') }}");
+                            });
                     }
                 }
             });
