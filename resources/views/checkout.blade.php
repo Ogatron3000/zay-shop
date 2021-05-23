@@ -14,36 +14,36 @@
 
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
-                                    <input type="email" class="form-control" id="email" name="email" value="">
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ old("email") }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ old("name") }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Address</label>
-                                    <input type="text" class="form-control" id="address" name="address" value="">
+                                    <input type="text" class="form-control" id="address" name="address" value="{{ old("address") }}" required>
                                 </div>
 
                                 <div class="half-form">
                                     <div class="form-group">
                                         <label for="city">City</label>
-                                        <input type="text" class="form-control" id="city" name="city" value="">
+                                        <input type="text" class="form-control" id="city" name="city" value="{{ old("city") }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="province">Province</label>
-                                        <input type="text" class="form-control" id="province" name="province" value="">
+                                        <label for="state">State</label>
+                                        <input type="text" class="form-control" id="state" name="state" value="{{ old("state") }}" required>
                                     </div>
                                 </div> <!-- end half-form -->
 
                                 <div class="half-form">
                                     <div class="form-group">
                                         <label for="postalcode">Postal Code</label>
-                                        <input type="text" class="form-control" id="postalcode" name="postalcode" value="">
+                                        <input type="text" class="form-control" id="postalcode" name="postalcode" value="{{ old("postalcode") }}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="phone">Phone</label>
-                                        <input type="text" class="form-control" id="phone" name="phone" value="">
+                                        <input type="text" class="form-control" id="phone" name="phone" value="{{ old("phone") }}" required>
                                     </div>
                                 </div> <!-- end half-form -->
 
@@ -52,8 +52,8 @@
                                 <h2>Payment Details</h2>
 
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="">
+                                    <label for="owner">Card Owner</label>
+                                    <input type="text" class="form-control" id="owner" name="owner" value="{{ old("owner") }}" required>
                                 </div>
 
                                 <div class="form-group">
@@ -132,4 +132,88 @@
         </div>
     </section>
 
+@endsection
+
+@section('extra-js')
+    <script type="text/javascript">
+        var stripe = Stripe(
+
+            'pk_test_51ItwSHD3zArsPzSwdFW58s4JkNn04nDN78J4Viar6ikX0LL5Qqto27h2oZwiKzcIx6l9H7wplzE19Bs6mWURSC3E00MkBKMyX8'
+        );
+
+        // Set up Stripe.js and Elements to use in checkout form
+        var elements = stripe.elements();
+        var style = {
+            base: {
+                color: "#32325d",
+            }
+        };
+
+        var card = elements.create("card", {
+            style: style,
+            hidePostalCode: true
+        });
+        card.mount("#card-element")
+
+        var form = document.getElementById('payment-form');
+
+        form.addEventListener('submit', function(ev) {
+            ev.preventDefault();
+
+            // Disable the submit button to prevent repeated clicks
+            document.getElementById('complete-order').disabled = true;
+
+            // If the client secret was rendered server-side as a data-secret attribute
+            // on the <form> element, you can retrieve it here by calling `form.dataset.secret`
+            stripe.confirmCardPayment(form.dataset.secret, {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        email: document.getElementById('email').value,
+                        name: document.getElementById('owner').value,
+                        phone: document.getElementById('phone').value,
+                        address: {
+                            city: document.getElementById('city').value,
+                            line1: document.getElementById('address').value,
+                            postal_code: document.getElementById('city').value,
+                            state: document.getElementById('state').value,
+                        },
+                    }
+                }
+            }).then(function(result) {
+                if (result.error) {
+                    // Show error to your customer (e.g., insufficient funds)
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                    // Enable the submit button
+                    document.getElementById('complete-order').disabled = false;
+                } else {
+                    // The payment has been processed!
+                    if (result.paymentIntent.status === 'succeeded') {
+                        // Show a success message to your customer
+                        // There's a risk of the customer closing the window before callback
+                        // execution. Set up a webhook or plugin to listen for the
+                        // payment_intent.succeeded event that handles any business critical
+                        // post-payment actions.
+                        $.ajax({
+                            url: "/thanks",
+                            type:"POST",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data:{
+                                orderStatus: result.paymentIntent.status,
+                            },
+                            success: function(response){
+                                window.location.replace("http://127.0.0.1:8000/thanks?order=succeeded");
+                            },
+                            error: function(response){
+                                window.location.replace("http://127.0.0.1:8000/checkout");
+                            },
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 @endsection
