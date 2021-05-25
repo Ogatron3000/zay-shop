@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::inRandomOrder()->take(3)->get();
+        $products = Product::where('featured', 1)->inRandomOrder()->take(3)->get();
+        $categories = Category::where('featured', 1)->inRandomOrder()->take(3)->get();
 
-        return view('home', compact('products'));
+        return view('home', compact('products', 'categories'));
     }
 }

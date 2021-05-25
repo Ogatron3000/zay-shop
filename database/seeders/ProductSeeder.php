@@ -14,76 +14,16 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::create([
-            'name' => 'Shoes 1',
-            'slug' => 'shoes-1',
-            'details' => 'Running Shoes',
-            'price' => 24999,
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
-        ]);
-
-        Product::create([
-            'name' => 'Shoes 2',
-            'slug' => 'shoes-2',
-            'details' => 'Basketball Shoes',
-            'price' => 14999,
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
-        ]);
-
-        Product::create([
-            'name' => 'Shoes 3',
-            'slug' => 'shoes-3',
-            'details' => 'Running Shoes',
-            'price' => 34999,
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
-        ]);
-
-        Product::create([
-            'name' => 'Shoes 4',
-            'slug' => 'shoes-4',
-            'details' => 'Lifestyle Shoes',
-            'price' => 44999,
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
-        ]);
-
-        Product::create([
-            'name' => 'Shoes 5',
-            'slug' => 'shoes-5',
-            'details' => 'Running Shoes',
-            'price' => 19999,
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
-        ]);
-
-        Product::create([
-            'name' => 'Shoes 6',
-            'slug' => 'shoes-6',
-            'details' => 'Football Shoes',
-            'price' => 24999,
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
-        ]);
-
-        Product::create([
-            'name' => 'Shoes 7',
-            'slug' => 'shoes-7',
-            'details' => 'Football Shoes',
-            'price' => 29999,
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
-        ]);
-
-        Product::create([
-            'name' => 'Shoes 8',
-            'slug' => 'shoes-8',
-            'details' => 'Running Shoes',
-            'price' => 4999,
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
-        ]);
-
-        Product::create([
-            'name' => 'Shoes 9',
-            'slug' => 'shoes-9',
-            'details' => 'Basketball Shoes',
-            'price' => 24999,
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
-        ]);
+        for ($i = 1; $i < 29; $i++) {
+            Product::create([
+                'name' => 'Shoes ' . $i,
+                'slug' => 'shoes-' . $i,
+                'details' => 'These are great shoes',
+                'price' => $i * 1000 + 999,
+                'sex_id' => $i % 3 + 1,
+                'featured' => $i % 7 > 0 ? 0 : 1,
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus iusto ipsa, asperiores voluptas unde aspernatur praesentium in? Aliquam, dolore!',
+            ])->categories()->attach($i % 7 + 1);
+        }
     }
 }

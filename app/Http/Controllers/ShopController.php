@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Sex;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -14,9 +16,32 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $products = Product::inRandomOrder()->take(9)->get();
+        $products = Product::query();
 
-        return view('shop', compact('products'));
+        if (request()->category) {
+            $products = $products->with('categories')->whereHas('categories', function ($query) {
+                $query->where('slug', request()->category);
+            })->inRandomOrder();
+        }
+
+        if (request()->sex) {
+            $products = $products->with('sex')->whereHas('sex', function ($query) {
+                $query->where('slug', request()->sex);
+            })->inRandomOrder();
+        }
+
+        if (request()->sort) {
+            if (request()->sort === 'low_to_high') {
+                $products = $products->orderBy('price');
+            }
+            $products = $products->orderByDesc('price');
+        }
+
+        $products = $products->paginate(9);
+        $sexes = Sex::all();
+        $categories = Category::all();
+
+        return view('shop', compact('products', 'categories', 'sexes'));
     }
 
     /**
