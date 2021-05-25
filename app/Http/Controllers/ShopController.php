@@ -18,23 +18,27 @@ class ShopController extends Controller
     {
         $products = Product::query();
 
-        if (request()->category) {
-            $products = $products->with('categories')->whereHas('categories', function ($query) {
-                $query->where('slug', request()->category);
-            })->inRandomOrder();
-        }
-
-        if (request()->sex) {
-            $products = $products->with('sex')->whereHas('sex', function ($query) {
-                $query->where('slug', request()->sex);
-            })->inRandomOrder();
-        }
-
-        if (request()->sort) {
-            if (request()->sort === 'low_to_high') {
-                $products = $products->orderBy('price');
+        if ( ! (request()->category && request()->sex && request()->sort)) {
+            $products = $products->inRandomOrder();
+        } else {
+            if (request()->category) {
+                $products = $products->with('categories')->whereHas('categories', function ($query) {
+                    $query->where('slug', request()->category);
+                });
             }
-            $products = $products->orderByDesc('price');
+
+            if (request()->sex) {
+                $products = $products->with('sex')->whereHas('sex', function ($query) {
+                    $query->where('slug', request()->sex);
+                });
+            }
+
+            if (request()->sort) {
+                if (request()->sort === 'low_to_high') {
+                    $products = $products->orderBy('price');
+                }
+                $products = $products->orderByDesc('price');
+            }
         }
 
         $products = $products->paginate(9);
