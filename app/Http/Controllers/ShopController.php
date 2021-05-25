@@ -18,7 +18,7 @@ class ShopController extends Controller
     {
         $products = Product::query();
 
-        if ( ! (request()->category && request()->sex && request()->sort)) {
+        if ( ! request()->category && ! request()->sex && ! request()->sort) {
             $products = $products->inRandomOrder();
         } else {
             if (request()->category) {
