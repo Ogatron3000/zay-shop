@@ -17,8 +17,11 @@ class CheckoutController extends Controller
     public function index()
     {
         if (Cart::instance('default')->count() < 1) {
-            return redirect()->route('cart.index');
+            return redirect()->route('cart.index')->withErrors('Cart cannot be empty!');
         }
+
+        $prices = $this->calculatePrices();
+        $amount = $prices->get('totalAfterDiscount');
 
         // Set your secret key. Remember to switch to your live secret key in production.
         // See your keys here: https://dashboard.stripe.com/apikeys
@@ -29,15 +32,16 @@ class CheckoutController extends Controller
         })->values()->toJson();
 
         $intent = \Stripe\PaymentIntent::create([
-            'amount' => round(Cart::total()),
+            'amount' => round($amount),
             'currency' => 'usd',
             'metadata' => [
                 'contents' => $contents,
-                'quantity' =>  Cart::count()
+                'quantity' =>  Cart::instance('default')->count(),
+                'discount' => collect(session()->get('coupon'))->toJson()
             ],
         ]);
 
-        return view('checkout', compact('intent'));
+        return view('checkout', compact('prices', 'intent'));
     }
 
     /**
@@ -106,5 +110,16 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function calculatePrices()
+    {
+        $tax = config('cart.tax') / 100;
+        $discount = session()->get('coupon')['discount'] ?? 0;
+        $subtotalAfterDiscount = Cart::instance('default')->subtotal() - $discount;
+        $taxOnSubtotalAfterDiscount = $subtotalAfterDiscount * $tax;
+        $totalAfterDiscount = $subtotalAfterDiscount + $taxOnSubtotalAfterDiscount;
+
+        return collect(compact('subtotalAfterDiscount', 'taxOnSubtotalAfterDiscount', 'totalAfterDiscount'));
     }
 }

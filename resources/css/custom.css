@@ -28,6 +28,7 @@ a:hover {
 
 .form-control:focus {
     border-color: #69bb7e;
+    outline: #69bb7e 2px solid;
     box-shadow: none;
 }
 
@@ -192,16 +193,16 @@ h1.checkout-heading {
     margin: 14px 0;
     text-align: right;
 }
-.checkout-section .have-code-container {
-    border: 1px solid #919191;
-    padding: 16px;
-}
+/*.checkout-section .have-code-container {*/
+/*    border: none;*/
+/*    padding: 16px;*/
+/*}*/
 .checkout-section .have-code-container form {
     display: flex;
     justify-content: space-between;
 }
 .checkout-section .have-code-container input[type=text] {
-    width: 70%;
+    width: 80%;
     padding: 10px;
     font-size: 16px;
 }

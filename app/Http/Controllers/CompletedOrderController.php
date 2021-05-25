@@ -34,6 +34,7 @@ class CompletedOrderController extends Controller
         }
 
         Cart::instance('default')->destroy();
+        session()->forget('coupon');
 
         return response()->json(['success' => 'success'], 200);
     }

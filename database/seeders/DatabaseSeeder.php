@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Coupon;
+use App\Models\FixedValueCoupon;
+use App\Models\PercentOffCoupon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,6 +18,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CategorySeeder::class);
         $this->call(SexesSeeder::class);
+        $this->call(FixedValueCouponSeeder::class);
+        $this->call(PercentOffCouponSeeder::class);
+        $this->call(CouponSeeder::class);
         $this->call(ProductSeeder::class);
     }
 }

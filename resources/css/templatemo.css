@@ -134,7 +134,7 @@ body, ul, li, p, a, label, input, div {
 .services-icon-wap:hover {background: #69bb7e;}
 /* Contact map */
 .leaflet-control a, .leaflet-control { font-size: 10px !important;}
-.form-control { border: 1px solid #e8e8e8;}
+.form-control { border: 1px solid #BDBDBD;}
 /* Footer */
 #tempaltemo_footer a { color: #dcdde1;}
 #tempaltemo_footer a:hover { color: #68bb7d;}

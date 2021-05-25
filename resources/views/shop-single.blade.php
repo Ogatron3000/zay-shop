@@ -136,7 +136,7 @@
                             {{--    <li>Excepteur sint</li>--}}
                             {{--</ul>--}}
 
-                            <form action="" method="GET">
+                            {{--<form action="" method="GET">--}}
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
                                     <div class="col-auto">
@@ -173,7 +173,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </form>
+                            {{--</form>--}}
 
                         </div>
                     </div>
