@@ -123,7 +123,7 @@
                             </ul>
 
                             <h6>Description:</h6>
-                            <p>{{ $product->description }}</p>
+                            <p>{!! $product->description !!}</p>
 
                             {{--<h6>Specification:</h6>--}}
                             {{--<ul class="list-unstyled pb-3">--}}

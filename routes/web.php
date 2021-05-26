@@ -42,3 +42,8 @@ Route::post('/thanks', [CompletedOrderController::class, 'store'])->name('thanks
 
 Route::post('/coupon', [CouponController::class, 'store'])->name('coupon.store');
 Route::delete('/coupon', [CouponController::class, 'destroy'])->name('coupon.destroy');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
