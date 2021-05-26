@@ -122,7 +122,7 @@
     <!-- End Categories of The Month -->
 
 
-    <!-- Start Featured Product -->
+    <!-- Start Featured Products -->
     <section class="bg-light">
         <div class="container py-5">
             <div class="row text-center py-3">
@@ -165,5 +165,5 @@
             </div>
         </div>
     </section>
-    <!-- End Featured Product -->
+    <!-- End Featured Products -->
 @endsection
