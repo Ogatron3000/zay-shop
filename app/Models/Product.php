@@ -9,13 +9,17 @@ class Product extends Model
 {
     use HasFactory;
 
+    public function getFeaturedAttribute($featured) {
+        return $featured == 1 ? 'Yes' : 'No';
+    }
+
     public function getRouteKeyName(){
         return 'slug';
     }
 
-    public function presentPrice()
+    public function getPriceAttribute($price)
     {
-        return '$' . number_format($this->price / 100, 2);
+        return '$' . number_format($price / 100, 2);
     }
 
     public function path()

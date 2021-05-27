@@ -151,7 +151,7 @@
                                 {{--    <i class="text-muted fa fa-star"></i>--}}
                                 {{--    <i class="text-muted fa fa-star"></i>--}}
                                 {{--</li>--}}
-                                <div class="text-muted text-right">{{ $product->presentPrice() }}</div>
+                                <div class="text-muted text-right">{{ $product->price }}</div>
                                 {{--</ul>--}}
                                 <a href="{{ $product->path() }}" class="h3 text-decoration-none text-dark">{{ $product->name }}</a>
                                 <p class="card-text">
