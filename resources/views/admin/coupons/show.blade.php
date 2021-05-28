@@ -4,11 +4,11 @@
 
 @section('content_header')
     <div class="d-flex align-items-center">
-        <h1 class="py-4 mr-4"><i class="fas fa-list mr-2"></i>Category Details</h1>
-        <a href="{{ route('admin.categories.edit', $category->slug) }}">
+        <h1 class="py-4 mr-4"><i class="fas fa-tag mr-2"></i>Coupon Details</h1>
+        <a href="{{ route('admin.coupons.edit', $coupon->id) }}">
             <button class="btn btn-warning text-white mr-2">Edit</button>
         </a>
-        <form action="{{ route('admin.categories.destroy', $category->slug) }}" method="POST">
+        <form action="{{ route('admin.coupons.destroy', $coupon->id) }}" method="POST">
             @csrf
             @method('DELETE')
             <button class="btn bg-maroon">Delete</button>
@@ -22,26 +22,26 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Category Details</h3>
+                        <h3 class="card-title">Product Details</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <dl>
                             <div class="post">
                                 <dt>ID</dt>
-                                <dd>{{ $category->id }}</dd>
+                                <dd>{{ $coupon->id }}</dd>
                             </div>
                             <div class="post">
                                 <dt>Name</dt>
-                                <dd>{{ $category->name }}</dd>
+                                <dd>{{ $coupon->code }}</dd>
                             </div>
                             <div class="post">
                                 <dt>Slug</dt>
-                                <dd>{{ $category->slug }}</dd>
+                                <dd>{{ $coupon->type }}</dd>
                             </div>
                             <div class="post">
                                 <dt>Featured</dt>
-                                <dd>{{ $category->featured }}</dd>
+                                <dd>{{ $coupon->presentDiscount() }}</dd>
                             </div>
                         </dl>
                     </div>

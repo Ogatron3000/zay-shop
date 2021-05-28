@@ -22,3 +22,11 @@ function add_to_existing_queries(array $newQuery) {
 
     return $allQueries;
 }
+
+function get_name($class) {
+    $noSpacesName =  class_basename($class);;
+    $splitWithWhitespace = preg_split('/(?=[A-Z])/', $noSpacesName);
+    $split = array_slice($splitWithWhitespace, 1);
+
+    return  implode(' ', $split);
+}

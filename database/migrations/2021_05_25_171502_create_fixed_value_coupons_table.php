@@ -15,7 +15,7 @@ class CreateFixedValueCouponsTable extends Migration
     {
         Schema::create('fixed_value_coupons', function (Blueprint $table) {
             $table->id();
-            $table->integer('value');
+            $table->integer('discount');
             $table->timestamps();
         });
     }

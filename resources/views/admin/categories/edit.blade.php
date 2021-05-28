@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ $category->name }}" placeholder="Shoes 1 Vintage">
+                                <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ $category->name }}" placeholder="Running">
 
                                 @error('name')
                                 <span class="invalid-feedback">

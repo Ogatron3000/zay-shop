@@ -18,7 +18,7 @@ class FixedValueCouponSeeder extends Seeder
         $now = Carbon::now()->toDateTimeString();
 
         FixedValueCoupon::insert([
-            ['value' => 500, 'created_at' => $now, 'updated_at' => $now],
+            ['discount' => 500, 'created_at' => $now, 'updated_at' => $now],
         ]);
     }
 }
