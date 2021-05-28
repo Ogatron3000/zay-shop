@@ -9,6 +9,12 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
+    public function getFeaturedAttribute($featured) {
+        return $featured == 1 ? 'Yes' : 'No';
+    }
+
     public function getRouteKeyName(){
         return 'slug';
     }

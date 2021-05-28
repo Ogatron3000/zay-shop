@@ -41,7 +41,7 @@
                         </div>
                         <div class="card-body">
                             <a href="{{ $product->path() }}" class="h3 text-decoration-none text-dark">{{ $product->name }}</a>
-                            <div class="text-muted text-right">{{ $product->presentPrice() }}</div>
+                            <div class="text-muted text-right">{{ $product->price }}</div>
                         </div>
                     </div>
                 </div>
