@@ -282,7 +282,7 @@ return [
         ],
         [
             'text' => 'Categories',
-            'url'  => 'admin/settings',
+            'route'  => 'admin.categories.index',
             'icon' => 'fas fa-fw fa-list',
         ],
 

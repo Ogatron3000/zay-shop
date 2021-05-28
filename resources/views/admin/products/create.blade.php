@@ -21,9 +21,6 @@
                     <form action="{{ route('admin.products.store') }}" method="POST">
                         @csrf
 
-                        @if($errors->any())
-                            {!! implode('', $errors->all('<div>:message</div>')) !!}
-                        @endif
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Name</label>

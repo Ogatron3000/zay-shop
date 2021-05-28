@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CompletedOrderController;
 use App\Http\Controllers\CouponController;
@@ -48,4 +49,5 @@ Route::view('/about', 'about');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('products', ProductController::class);
+    Route::resource('categories', CategoryController::class);
 });
