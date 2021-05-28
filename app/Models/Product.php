@@ -11,12 +11,14 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function getFeaturedAttribute($featured) {
-        return $featured == 1 ? 'Yes' : 'No';
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
-    public function getRouteKeyName(){
-        return 'slug';
+    public function getFeaturedAttribute($featured)
+    {
+        return $featured == 1 ? 'Yes' : 'No';
     }
 
     public function presentPrice()
