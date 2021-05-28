@@ -9,6 +9,8 @@ class FixedValueCoupon extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function coupon()
     {
         return $this->morphOne(Coupon::class, 'couponable');
@@ -16,6 +18,11 @@ class FixedValueCoupon extends Model
 
     public function discount($total)
     {
-        return $this->value;
+        return $this->discount;
+    }
+
+    public function presentDiscount()
+    {
+        return present_price($this->discount);
     }
 }

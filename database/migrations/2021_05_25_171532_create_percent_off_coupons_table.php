@@ -15,7 +15,7 @@ class CreatePercentOffCouponsTable extends Migration
     {
         Schema::create('percent_off_coupons', function (Blueprint $table) {
             $table->id();
-            $table->integer('percent');
+            $table->integer('discount');
             $table->timestamps();
         });
     }

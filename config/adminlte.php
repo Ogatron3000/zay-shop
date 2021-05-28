@@ -288,19 +288,8 @@ return [
 
         [
             'text'    => 'Coupons',
+            'route'  => 'admin.coupons.index',
             'icon'    => 'fas fa-fw fa-tag',
-            'submenu' => [
-                [
-                    'text' => 'Fixed Price',
-                    'icon'    => 'fas fa-fw fa-dollar-sign',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Percent Off',
-                    'icon'    => 'fas fa-fw fa-percent',
-                    'url'  => '#',
-                ],
-            ],
         ],
         // ['header' => 'labels'],
         // [

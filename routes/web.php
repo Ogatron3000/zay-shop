@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CompletedOrderController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaveForLaterController;
@@ -42,12 +43,13 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.in
 Route::get('/thanks', [CompletedOrderController::class, 'index'])->name('thanks.index');
 Route::post('/thanks', [CompletedOrderController::class, 'store'])->name('thanks.store');
 
-Route::post('/coupon', [CouponController::class, 'store'])->name('coupon.store');
-Route::delete('/coupon', [CouponController::class, 'destroy'])->name('coupon.destroy');
+Route::post('/coupon', [DiscountController::class, 'store'])->name('coupon.store');
+Route::delete('/coupon', [DiscountController::class, 'destroy'])->name('coupon.destroy');
 
 Route::view('/about', 'about');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);
+    Route::resource('coupons', CouponController::class);
 });

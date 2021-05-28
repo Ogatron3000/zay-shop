@@ -9,6 +9,8 @@ class PercentOffCoupon extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function coupon()
     {
         return $this->morphOne(Coupon::class, 'couponable');
@@ -16,6 +18,11 @@ class PercentOffCoupon extends Model
 
     public function discount($total)
     {
-        return $total * $this->percent / 100;
+        return $total * $this->discount / 100;
+    }
+
+    public function presentDiscount()
+    {
+        return $this->discount . ' %';
     }
 }

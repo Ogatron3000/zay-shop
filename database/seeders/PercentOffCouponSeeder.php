@@ -19,7 +19,7 @@ class PercentOffCouponSeeder extends Seeder
         $now = Carbon::now()->toDateTimeString();
 
         PercentOffCoupon::insert([
-            ['percent' => 50, 'created_at' => $now, 'updated_at' => $now],
+            ['discount' => 50, 'created_at' => $now, 'updated_at' => $now],
         ]);
     }
 }

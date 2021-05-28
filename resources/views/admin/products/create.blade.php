@@ -76,8 +76,6 @@
                                 @enderror
                             </div>
 
-
-
                             <div class="form-group">
                                 <label for="category_ids">Categories</label>
                                 <div class="@error('categories') border rounded border-danger @enderror">

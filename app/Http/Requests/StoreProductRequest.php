@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|unique:products,name',
             'details' => 'required|string|max:255',
-            'price' => 'required|integer',
+            'price' => 'required|integer|min:100',
             'sex_id' => 'required|integer|exists:sexes,id',
             'category_ids' => 'required|array|exists:categories,id',
             'featured' => 'nullable|integer|in:1',
