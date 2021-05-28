@@ -277,7 +277,7 @@ return [
         // ['header' => 'account_settings'],
         [
             'text' => 'Products',
-            'url'  => 'admin/settings',
+            'route'  => 'admin.products.index',
             'icon' => 'fas fa-fw fa-shopping-bag',
         ],
         [

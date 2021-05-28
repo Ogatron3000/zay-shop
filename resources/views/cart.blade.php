@@ -114,7 +114,7 @@
                                         {{--    @endfor--}}
                                         {{--</select>--}}
                                     </div>
-                                    <div>{{ $item->model->price }}</div>
+                                    <div>{{ $item->model->presentPrice() }}</div>
                                 </div>
                             </div>
                         @endforeach <!-- end cart-table-row -->

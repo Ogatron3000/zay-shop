@@ -3,31 +3,71 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <div class="d-flex align-items-center">
+        <h1 class="py-4 mr-4"><i class="fas fa-shopping-bag mr-2"></i>Product Details</h1>
+        <a href="{{ route('admin.products.edit', $product->slug) }}">
+            <button class="btn btn-warning text-white mr-2">Edit</button>
+        </a>
+        <form action="{{ route('admin.products.destroy', $product->slug) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="btn bg-maroon">Delete</button>
+        </form>
+    </div>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
-
     <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <p>{{ $product->id }}</p>
-                            <p>{{ $product->name }}</p>
-                            <p>{{ $product->slug }}</p>
-                            <p>{{ $product->details }}</p>
-                            <p>{{ $product->price }}</p>
-                            <p>{{ $product->sex->name }}</p>
-                            <p>{{ $product->featured }}</p>
-                            <p>{!! $product->description !!}</p>
-                        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Product Details</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <dl>
+                            <div class="post">
+                                <dt>ID</dt>
+                                <dd>{{ $product->id }}</dd>
+                            </div>
+                            <div class="post">
+                                <dt>Name</dt>
+                                <dd>{{ $product->name }}</dd>
+                            </div>
+                            <div class="post">
+                                <dt>Slug</dt>
+                                <dd>{{ $product->slug }}</dd>
+                            </div>
+                            <div class="post">
+                                <dt>Details</dt>
+                                <dd>{{ $product->details }}</dd>
+                            </div>
+                            <div class="post">
+                                <dt>Price</dt>
+                                <dd>{{ $product->presentPrice() }}</dd>
+                            </div>
+                            <div class="post">
+                                <dt>Sex</dt>
+                                <dd>{{ $product->sex->name }}</dd>
+                            </div>
+                            <div class="post">
+                                <dt>Categories</dt>
+                                <dd>
+                                    @foreach($product->categories as $category)
+                                        {{ $category->name }}
+                                    @endforeach
+                                </dd>
+                            </div>
+                            <div class="post">
+                                <dt>Featured</dt>
+                                <dd>{{ $product->featured }}</dd>
+                            </div>
+                            <div class="post">
+                                <dt>Description</dt>
+                                <dd>{!! $product->description !!}</dd>
+                            </div>
+                        </dl>
                     </div>
                 </div>
             </div>

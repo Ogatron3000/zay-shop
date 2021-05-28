@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('details')->nullable();
+            $table->string('details');
             $table->integer('price');
             $table->foreignId('sex_id')->constrained();
             $table->boolean('featured')->default(0);

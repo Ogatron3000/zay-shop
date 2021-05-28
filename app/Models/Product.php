@@ -9,6 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function getFeaturedAttribute($featured) {
         return $featured == 1 ? 'Yes' : 'No';
     }
@@ -17,9 +19,9 @@ class Product extends Model
         return 'slug';
     }
 
-    public function getPriceAttribute($price)
+    public function presentPrice()
     {
-        return '$' . number_format($price / 100, 2);
+        return '$' . number_format($this->price / 100, 2);
     }
 
     public function path()

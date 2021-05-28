@@ -150,7 +150,7 @@
                                     {{--        <i class="text-muted fa fa-star"></i>--}}
                                     {{--    </li>--}}
                                     {{--</ul>--}}
-                                    <p class="mb-0">{{ $product->price }}</p>
+                                    <p class="mb-0">{{ $product->presentPrice() }}</p>
                                 </div>
                             </div>
                         </div>
