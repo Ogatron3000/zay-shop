@@ -41,10 +41,13 @@
                         <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
+                        <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  href="{{ route('admin.products.index') }}">Dashboard (temp)</a>
                     </li>
                 </ul>
             </div>
