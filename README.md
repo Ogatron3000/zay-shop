@@ -2,6 +2,8 @@ Ecommerce application allowing users to browse, save and buy products, with admi
 
 Live preview: https://staging-zay-shop.herokuapp.com/
 
+Used Git workflow with dev branch and staging server.
+
 Features:
 - shopping cart with options like saving for later and applying discount coupons
 - Stripe payments
